@@ -1,13 +1,21 @@
 {
   "name": "@sushiswap/tines",
   "version": "1.0.0-canary.100",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "license": "SSPL-1.0",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    "./*": {
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.cjs"
+    }
+  },
+  "typings": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
-  "module": "dist/tines.esm.js",
   "repository": {
     "url": "sushiswap/sdk",
     "directory": "packages/tines"
@@ -23,7 +31,15 @@
     "test": "tsdx test",
     "test_debug": "node --inspect-brk '../../node_modules/tsdx/dist/index.js' test",
     "clear_jest_cache": "tsdx test --clearCache --passWithNoTests",
-    "prepublishOnly": "npx tsdx build"
+    "dist": "rollup -c rollup.config.js",
+    "baseline": "npx tsc --extendedDiagnostics",
+    "explain": "npx tsc --explainFiles > explanation.txt",
+    "trace": "npx tsc --traceResolution > resolution.txt",
+    "profile": "node --trace-ic ./node_modules/typescript/lib/tsc.js --generateCpuProfile profile.cpuprofile -p tsconfig.json",
+    "tracer": "mkdir -p tmp_folder/ && npx tsc -p ./tsconfig.json --generateTrace tmp_folder",
+    "test": "echo \"Fail: no test specified\" && exit 127",
+    "compile": "npx rollup -c rollup.config.js",
+    "fmt": "npx prettier --config .prettierrc.js --write src/**/*.ts"
   },
   "dependencies": {
     "@ethersproject/bignumber": "^5.4.0",
@@ -31,8 +47,18 @@
   },
   "devDependencies": {
     "@types/seedrandom": "^3.0.1",
+    "@typescript-eslint/parser": "5.30.0",
+    "@typescript/analyze-trace": "0.9.0",
+    "esbuild": "0.14.47",
+    "eslint": "8.18.0",
+    "process-tracing": "1.0.2",
+    "rollup": "2.75.7",
+    "rollup-plugin-esbuild": "4.9.1",
     "seedrandom": "^3.0.5",
-    "tsdx": "^0.14.1"
+    "ts-node": "10.8.1",
+    "tsdx": "^0.14.1",
+    "typescript": "4.7.4",
+    "typescript-eslint-language-service": "5.0.0"
   },
   "gitHead": "b869e78b9f7fa4a073f599f557a141f894287766"
 }
