@@ -1,8 +1,24 @@
 {
   "extends": "../../config/tsconfig.json",
-  "include": ["src"],
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "src",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "removeComments": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./",
+    "preserveValueImports": true,
+    "allowUnreachableCode": false,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "isolatedModules": true,
+    "declaration": true,
+    "sourceMap": false,
+    "module": "node16",
+    "moduleResolution": "node16",
+    "moduleDetection": "force",
   }
 }
